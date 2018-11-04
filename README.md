@@ -5,7 +5,6 @@
 ## •	Care este principala nevoie/problemă pe care o rezolvă produsul?
 
 Produsul nostru contribuie la facilitarea gestionării timpului utilizatorilor săi, prin oferirea posibilității înregistrării și programării unor evenimente. Acestea pot avea denumiri individuale, intervale orare și pot fi stabilite multiple notificări, în funcție de preferințele utilizatorului, la începerea evenimentului respectiv sau cu câteva minute, ore, zile sau săptămâni înainte de acesta. 
-Mai mult, în calendar este menționată vremea pentru 7 zile în localitatea curentă a utilizatorului prin intermediul aplicației AccuWeather.
 
 ## •	Cărui tip de utilizatori se adresează produsul?
 
