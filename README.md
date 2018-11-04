@@ -44,8 +44,6 @@ Order same date events by preferences
 
 Response -->[ { "date": "13.13.2013", "message": "clean your room", "score": "4" } ]
 
-POST
-
 Add a new event
 
 • POST/event
