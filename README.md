@@ -18,4 +18,45 @@ Există numeroase aplicații ce au fost realizate prin integrarea facilitățilo
 **Bookafy** este un sistem online de gestionare a unor evenimente ce este destinat fie utilizării în scop personal, fie pentru gestionarea eficientă a timpului în cadrul unor companii. Toate aplicațiile ce integrează Google Calendar încearcă să aducă și anumite facilități specifice lor care să le diferențieze de celelalte.
 Funcționalitatea specifică aplicației noastre este că spre deosebire de celelalte aplicații existente pe piață, aceasta poate ordona evenimentele în funcție de preferințele utilizatorului atunci când aceastea se suprapun.
 
+## • API REST
+ Get the entire appointments list
+ •  GET/appointments
+ Response -->[
+               {
+                "name": "ex1",
+                "date": "12.12.2012",
+                "message": "dinner with Jon",
+                "score": "5"
+               }
+            ]      
+ Search by appointment name
+ •  GET/appointments?search=name&orderBy=date
+ Response -->[
+               {
+                "name": "ex2",
+                "date": "13.13.2013",
+                "message": "clean your room"
+               }
+            ]  
+ Search by certain date
+ •  GET/appointments?search=date
+ Response -->[
+               {
+                "date": "13.13.2013",
+                "message": "clean your room"
+               }
+            ]
+ Order same date events by preferences
+ •  GET/appointments?search=date&orderBy=score 
+ Response -->[
+               {
+                "date": "13.13.2013",
+                "message": "clean your room",
+                "score": "4"
+               }
+            ]
+ POST
+ •  POST/event
+ •  POST/score
+
 ![alt text](https://github.com/bobocgeorgiana/TWProject/blob/master/a244SRSI.png "Poza")
