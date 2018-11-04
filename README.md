@@ -42,7 +42,7 @@ Order same date events by preferences
 
 • GET/appointments?search=date&orderBy=score
 
-Response -->[ { "date": "13.13.2013", "message": "clean your room", "score": "4" } ]
+Response -->[ { "date": "14.14.2014", "message": "don't forget to drink water", "score": "10+" } ]
 
 Add a new event
 
@@ -52,4 +52,4 @@ Give a score to an existing appointment
 
 • POST/score
 
-
+![alt text](https://github.com/bobocgeorgiana/TWProject/blob/master/a244SRSI.png "Poza")
