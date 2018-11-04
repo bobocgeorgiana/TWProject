@@ -52,4 +52,4 @@ Give a score to an existing appointment
 
 • POST/score
 
-![alt text](https://github.com/bobocgeorgiana/TWProject/blob/master/Struct.jpg "Structura")
+![alt text](https://github.com/bobocgeorgiana/TWProject/blob/master/Structura.jpg "Structura")
