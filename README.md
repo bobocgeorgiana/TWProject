@@ -1,3 +1,5 @@
+
+Ce alte produse similare există în piață?
 Există numeroase aplicații ce au realizate prin integrare facilităților oferite de Google Calendar. Printre facilitățile oferite de acestea se enumeră preluarea automată în calendar a evenimentelor din Gmail, permiterea accesului altor persoane la calendar, dar și primirea unor notificări cu privire la evenimentele programate.
 
 Acuity Scheduling este o aplicație mobilă ce integrează funcționalitățile oferite de Google Calendar și poate fi folosită atât pe dispozitive cu sistem de operare Android, cât și Apple iOS. Aceasta permite adăugarea unor evenimente, modificarea sau ștergerea acestora și are o interfață ușor de utilizat.
