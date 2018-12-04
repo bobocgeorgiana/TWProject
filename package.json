@@ -19,7 +19,11 @@
   "dependencies": {
     "express": "^4.16.4",
     "mysql": "^2.16.0",
+<<<<<<< HEAD
     "mysql2": "^1.6.4",
     "sequelize": "^4.41.2"
+=======
+    "mysql2": "^1.6.4"
+>>>>>>> eb6f24d63567089aeeb105db850154a74b4a3d9e
   }
 }
