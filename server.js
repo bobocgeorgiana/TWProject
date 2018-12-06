@@ -1,10 +1,6 @@
 const express = require('express')
-const app = express()
-
-//creare BD
-
-
 const Sequelize = require('sequelize')
+
 
 const sequelize = new Sequelize('calendar', 'root', '', {
     dialect: "mysql",
@@ -24,6 +20,7 @@ password:Sequelize.STRING
 
  })
 
+const app = express()
 
 app.get('/createdb', (request, response) => {
     sequelize.sync({force:true}).then(() => {
