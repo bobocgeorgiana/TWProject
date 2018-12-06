@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
 
+
 const sequelize = new Sequelize('calendar','root','',{
 	dialect : 'mysql',
 	define : {

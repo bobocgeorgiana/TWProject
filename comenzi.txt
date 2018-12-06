@@ -1,0 +1,19 @@
+Pentru ca serverul sa fie functonal trebuie sa realizam baza de date astfel:
+
+mysql-ctl start
+
+mysql -u root
+
+create database calendar;
+
+Dupa parcurgerea acestor pasi, s-a creat baza de date, asadar o sa ne putem conecta la server, insa ea nu are nicio tabela.
+
+Pentru a crea tabelele am facut un get si trebuie apelat =>  https://twproject-georgianaboboc.c9users.io/createdb
+
+Pentru a vedea tabele, intram in terminalul de mysql si folosim comenzile:
+use calendar;
+show tables;
+
+Pentru a vedea continutul unei tabele :
+describe numetabela;
+ex: descrbie users;
