@@ -44,6 +44,14 @@ let Event = sequelize.define('event',{
 		defaultValue : Sequelize.NOW
 		
 	},
+	score : {
+		type : Sequelize.INTEGER,
+		validate : {
+			isNumeric : true,
+			min : 1,
+			max: 5
+		}
+	},
 		description : {
 		type : Sequelize.STRING,
 		validate : {
