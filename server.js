@@ -268,6 +268,25 @@ app.delete('/users/:id', (request, response) => {
 })    
 
 
+// metode HTTP pentru tabela events
+app.post('/users/:id/events',(req, res) => {
+	try {
+		let user = User.findById(req.params.id)
+		if (user){
+			let event = req.body
+			event.userId = user.id
+			 Event.create(event)
+			res.status(201).json({message : 'created'})
+		}
+		else{
+			res.status(404).json({message : 'not found'})
+		}
+	} catch (e) {
+		console.warn(e.stack)
+		res.status(500).json({message : 'server error'})
+	}	
+})
+
 
 
 app.use('/', express.static('static'))
