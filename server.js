@@ -12,20 +12,20 @@ const sequelize = new Sequelize('calendar','root','',{
 })
 
 const User = sequelize.define('user', {
-	username : {
+	gmail : {
 		type : Sequelize.STRING,
 		allowNull : false,
 		validate : {
-			len : [3, 50]
+			isEmail: true
 		}
 	},
 	password : {
 		type : Sequelize.STRING,
 		allowNull : false,
 		validate : {
-			len : [3, 50]
+			len : [8, 40]
 		}
-	}
+	},
 	
 })
 
@@ -59,13 +59,17 @@ let Event = sequelize.define('event',{
 			len : [5, 100]
 		}
 	},
-	duration : {
-		type : Sequelize.FLOAT,
-		validate : {
-			isNumeric : true,
-			min : 0
-		}
+     
+     startTime : {
+        type : Sequelize.TIME,
+		allowNull: false,
 	},
+	
+	 endTime : {
+        type : Sequelize.TIME,
+		allowNull: false,
+	},
+
 	
 })
 
@@ -143,6 +147,7 @@ User.hasMany(Event)
 Location.belongsTo(Event)
 Event.hasMany(Reminder)
 
+
 const app = express()
 app.use(bodyParser.json())
 
@@ -172,19 +177,6 @@ app.get('/createdb',(request,response)=>{
 
 // metode HTTP pentru tabela users
 
-//metodă de preluare a tuturor utilizatorilor
-app.get('/users', (request,response) => {
-    User.findAll()
-    .then((results) => {
-        response.status(200).json(results)
-    })
-    .catch(()=>{
-        response.status(500).send("Eroare server")
-        
-    })
-})
-
-
 //metodă de creare a utilizatorilor;  
 //dacă parametrul bulk are valoarea "ok" vom adauga mai multi utilizatori, daca nu, unul singur
 app.post('/users', (request, response) => {
@@ -204,6 +196,17 @@ app.post('/users', (request, response) => {
       .catch(()=>
 			response.status(500).send('Eroare server'))
 	}
+})
+//metodă de preluare a tuturor utilizatorilor
+app.get('/users', (request,response) => {
+    User.findAll()
+    .then((results) => {
+        response.status(200).json(results)
+    })
+    .catch(()=>{
+        response.status(500).send("Eroare server")
+        
+    })
 })
 
 //metodă de preluare a unui utilizator in functie de id
@@ -226,26 +229,46 @@ app.get('/users/:id', (request,response)=>
 })
 
 //metodă de modificare a unui utilizator in functie de id
-// app.put('/users/:id', (request,response)=>{
-//     User.findById(request.params.id)
-//     .then((result)=>{
-//         if(result){
-//       return result.update(request.body)
-//         }
-//     else{
-//     response.status(404).send("Utilizatorul nu a fost gasit!")
-//     }
-    
-//     })
-//     .then(()=>{
-//         response.status(201).send("Utilizatorul a fost modificat!")
-//     })
-//   .catch(()=>{
-//         response.status(500).send("Eroare server")
-//     })
-    
-// })
-    
+app.put('/users/:id', (request, response) => {
+    User.findById(request.params.id)
+    .then((user) => {
+        if(user) {
+            user.update(request.body).then((result) => {
+                response.status(201).json(result)
+            }).catch((err) => {
+                console.log(err)
+                response.status(500).send('Eroare server')
+            })
+        } else {
+            response.status(404).send('Utilizatorul nu a fost gasit!')
+        }
+    }).catch((err) => {
+        console.log(err)
+        response.status(500).send('Eroare server')
+    })
+})
+
+//metodă de stergere a unui utilizator in functie de id  
+app.delete('/users/:id', (request, response) => {
+    User.findById(request.params.id).then((user) => {
+        if(user) {
+            user.destroy().then((result) => {
+               response.status(201).send('Utilizatorul a fost sters cu succes!')
+            }).catch((err) => {
+                console.log(err)
+                response.status(500).send('Eroare server')
+            })
+        } else {
+            response.status(404).send('Utilizatorul nu a fost gasit!')
+        }
+    }).catch((err) => {
+        console.log(err)
+        response.status(500).send('Eroare server')
+    })
+})    
+
+
+
 
 app.use('/', express.static('static'))
 
