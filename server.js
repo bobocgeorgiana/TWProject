@@ -2,6 +2,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
+const authRoutes = require('./routes/auth-routes');
 
 
 const sequelize = new Sequelize('calendar', 'root', '', {
@@ -28,7 +29,7 @@ const User = sequelize.define('user', {
 	},
 
 })
-
+const passportSetup = require("./config/passport-setup");
 let Event = sequelize.define('event', {
 	name: {
 		type: Sequelize.STRING,
@@ -180,6 +181,7 @@ app.get('/createdb', (request, response) => {
 		})
 
 })
+
 
 
 
@@ -520,7 +522,11 @@ app.delete('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
 })
 
 
+app.use(express.static('static', {index: 'login.html'}))
 
-app.use('/', express.static('static'))
+app.use('/auth', authRoutes);
 
+// app.get('/', (require, response) =>{
+// 	response.render('login');
+// })
 app.listen(8080)
