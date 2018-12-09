@@ -182,10 +182,8 @@ app.get('/createdb', (request, response) => {
 
 // metode HTTP pentru tabela users
 
-
-
 //metodă de preluare a tuturor utilizatorilor in ordine descrescatore a gmail-ului
-//metodă de cautare a unor urilizatori in functie de gmailul acestora daca avem si parametrul gmail
+//metodă de cautare a unor urilizatori in functie de gmailul acestora
 app.get('/users', (req, res) => {
 		let params = {
 			where : {},
@@ -497,7 +495,7 @@ app.post('/users/:uid/events/:eid/reminders', (req, res) => {
 		.catch(() => res.status(500).send('Eroare server'))
 })
 
-//metodă de preluare a reminder-elor unui anumit event
+//metodă de preluare a reminderelor unui anumit event
 app.get('/users/:uid/events/:eid/reminders', (req, res) => {
 	Event.findById(req.params.eid)
 		.then((result) => {
