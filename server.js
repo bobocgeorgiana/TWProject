@@ -2,8 +2,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
-const authRoutes = require('./routes/auth-routes');
-const passportSetup = require("./config/passport-setup");
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20')
+const cookieSession = require('cookie-session');
+
 const Op = Sequelize.Op;
 
 const sequelize = new Sequelize('calendar', 'root', '', {
@@ -20,14 +22,7 @@ const User = sequelize.define('user', {
 		validate: {
 			isEmail: true
 		}
-	},
-	password: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			len: [8, 40]
-		}
-	},
+	}
 
 })
 
@@ -160,6 +155,7 @@ const app = express()
 app.use(bodyParser.json())
 
 
+
 //testarea conexiunii cu baza de date
 sequelize.authenticate()
 	.then(() => {
@@ -186,27 +182,7 @@ app.get('/createdb', (request, response) => {
 
 // metode HTTP pentru tabela users
 
-//metodă de creare a utilizatorilor;  
-//dacă parametrul bulk are valoarea "ok" vom adauga mai multi utilizatori, daca nu, unul singur
-app.post('/users', (request, response) => {
-	if (request.query.bulk && request.query.bulk == 'ok') {
-		User.bulkCreate(request.body)
-			.then(() => {
-				response.status(201).send('Utilizatorii au fost creati!')
-			})
-			.catch(() =>
-				response.status(500).send('Eroare server')
-			)
-	}
-	else {
-		User.create(request.body)
-			.then(() => {
-				response.status(201).send('Utilizatorul a fost creat!')
-			})
-			.catch(() =>
-				response.status(500).send('Eroare server'))
-	}
-})
+
 
 //metodă de preluare a tuturor utilizatorilor in ordine descrescatore a gmail-ului
 //sau de cautare a unor urilizatori in functie de gmailul acestora daca avem si parametrul gmail
@@ -595,7 +571,78 @@ app.delete('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
 
 app.use(express.static('static', {index: 'login.html'}))
 
-app.use('/auth', authRoutes);
+// cookieSession config
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000, // One day in milliseconds
+    keys: ['randwgqkpkqwastsromkk21@%@wto12@$$wlafp;$kawml2p0kasfmaw']
+}));
+
+app.use(passport.initialize()); // Used to initialize passport
+app.use(passport.session()); // Used to persist login sessions
+
+// Strategy config
+passport.use(new GoogleStrategy({
+        clientID: '97010449707-4d2up6i3jo70ommph6nuhsu6tj102hac.apps.googleusercontent.com',
+        clientSecret: 'uPJSt7uUWBb_j2caa4fV1sTt',
+        callbackURL: 'https://protiect-tw-adicarry.c9users.io/auth/google/redirect'
+    },
+    (accessToken, refreshToken, profile, done) => {
+        done(null, profile); // passes the profile data to serializeUser
+    }
+));
+
+// Used to stuff a piece of information into a cookie
+passport.serializeUser((user, done) => {
+    done(null, user);
+    console.log(user);
+});
+
+// Used to decode the received cookie and persist session
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+
+// Middleware to check if the user is authenticated
+function isUserAuthenticated(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.send('You must login!');
+    }
+}
+
+// passport.authenticate middleware is used here to authenticate the request
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read'] // Used to specify the required data
+}));
+// The middleware receives the data from Google and runs the function on Strategy config
+app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
+    res.redirect('/secret');
+});
+
+var fs = require('fs');
+
+// Secret route
+app.get('/secret', isUserAuthenticated, (req, response) => {
+    fs.readFile('./static/index.html', null, function(error, data){
+    	if(error){
+    		response.writeHead(404);
+    		response.write('File not found!');
+    	} else {
+    		response.write(data);
+    	}
+    	response.end();
+    })
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+    req.logout(); 
+    res.redirect('/');
+});
+
+
+
 
 // app.get('/', (require, response) =>{
 // 	response.render('login');
