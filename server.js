@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
 const authRoutes = require('./routes/auth-routes');
-
+const passportSetup = require("./config/passport-setup");
 
 const sequelize = new Sequelize('calendar', 'root', '', {
 	dialect: 'mysql',
@@ -29,7 +29,7 @@ const User = sequelize.define('user', {
 	},
 
 })
-const passportSetup = require("./config/passport-setup");
+
 let Event = sequelize.define('event', {
 	name: {
 		type: Sequelize.STRING,
@@ -147,11 +147,11 @@ let Location = sequelize.define('location', {
 //De asemenea, proprietatea onDelete a fost setata pe 'cascade' deoarece in momentul in care se sterge un utilizator, dorim sa se stearga si toate event-urile acestuia
 User.hasMany(Event, { onDelete: 'cascade', hooks: true })
 
-//Intre tabela evnts si locations exista o realtie de 1-1, deoarece un event se poate desfasura intr-o sigura locatie
+//Intre tabela evnts si locations exista o realtie de 1-1, deoarece un event se poate desfasura intr-o sigura locatie.
 Event.hasOne(Location, { foreignKey: { unique: 'eventId' } })
 
 //Intre tabela events si reminders exista o realtie de 1-n, un event putand avea unul sau mai multe remindere.
-//De asemenea, proprietatea onDelete a fost setata pe 'cascade' deoarece in momentul in care se sterge un event, dorim sa se stearga si toate remider-urile acestuia
+//De asemenea, proprietatea onDelete a fost setata pe 'cascade' deoarece in momentul in care se sterge un event, dorim sa se stearga si toate remider-urile acestuia.
 Event.hasMany(Reminder, { onDelete: 'cascade', hooks: true })
 
 
@@ -162,7 +162,7 @@ app.use(bodyParser.json())
 //testarea conexiunii cu baza de date
 sequelize.authenticate()
 	.then(() => {
-		console.log('Realizarea conexiunii cu baza de date s-a realizat cu succes!')
+		console.log('Conexiunea cu baza de date s-a realizat cu succes!')
 	})
 	.catch(() => {
 		console.log('A fost o eroare la realizarea conexiunii cu baza de date!')
@@ -181,8 +181,6 @@ app.get('/createdb', (request, response) => {
 		})
 
 })
-
-
 
 
 // metode HTTP pentru tabela users
@@ -208,6 +206,7 @@ app.post('/users', (request, response) => {
 				response.status(500).send('Eroare server'))
 	}
 })
+
 //metodă de preluare a tuturor utilizatorilor
 app.get('/users', (request, response) => {
 	User.findAll()
@@ -280,9 +279,10 @@ app.delete('/users/:id', (request, response) => {
 })
 
 
+
 // metode HTTP pentru tabela events
 
-//metodă de creare a unui event in functie de un utilizator;  
+//metodă de creare a unui event al unui anumit utilizator;  
 app.post('/users/:uid/events', (req, res) => {
 	User.findById(req.params.uid)
 		.then((result) => {
@@ -309,6 +309,24 @@ app.get('/users/:uid/events', (req, res) => {
 		.then((result) => {
 			if (result) {
 				return result.getEvents()
+			}
+			else {
+				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
+			}
+		})
+		.then((results) => {
+
+			res.status(200).json(results)
+		})
+		.catch(() => res.status(500).send('Eroare server'))
+})
+
+//metodă de preluare a unui anumit event al unui utilizator in functie de id
+app.get('/users/:uid/events/:eid', (req, res) => {
+	User.findById(req.params.uid)
+		.then((result) => {
+			if (result) {
+				return result.getEvents({where:{id : req.params.eid}})
 			}
 			else {
 				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
@@ -483,6 +501,23 @@ app.get('/users/:uid/events/:eid/reminders', (req, res) => {
 		.catch(() => res.status(500).send('Eroare server'))
 })
 
+//metodă de preluare a unui anumit reminder al unui event in functie de id
+app.get('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
+	Event.findById(req.params.eid)
+		.then((result) => {
+			if (result) {
+				return result.getReminders({where:{id : req.params.rid}})
+			}
+			else {
+				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
+			}
+		})
+		.then((results) => {
+
+			res.status(200).json(results)
+		})
+		.catch(() => res.status(500).send('Eroare server'))
+})
 
 //metodă de modificare a unui anumit reminder al unui event
 app.put('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
