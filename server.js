@@ -209,16 +209,16 @@ app.post('/users', (request, response) => {
 })
 
 //metodă de preluare a tuturor utilizatorilor in ordine descrescatore a gmail-ului
-//sau de cautare a unor urilizatori in functie de gmailul acestora daca avem si parametrul filter
+//sau de cautare a unor urilizatori in functie de gmailul acestora daca avem si parametrul gmail
 app.get('/users', (req, res) => {
 		let params = {
 			where : {},
 			order : [['gmail', 'DESC']]
 		}
-	    if (req.query.filter){
+	    if (req.query.gmail){
 	    	
 				params.where.gmail = {
-	        		[Op.like] : `%${req.query.filter}%`
+	        		[Op.like] : `%${req.query.gmail}%`
 	        	
 	    	}
 	    }
@@ -317,11 +317,33 @@ app.post('/users/:uid/events', (req, res) => {
 
 
 //metodă de preluare a tuturor event-urilor  unui utilizator
+
 app.get('/users/:uid/events', (req, res) => {
+	let params = {
+			where : {},
+			order : [['date', 'DESC']]
+		}
 	User.findById(req.params.uid)
 		.then((result) => {
 			if (result) {
-				return result.getEvents()
+				if(req.query)
+				{
+				if (req.query.date){
+	    	
+				params.where.date = {
+	        		[Op.like] : `%${req.query.date}%`
+	        	
+	    	}
+	    }
+	    if (req.query.name){
+	    	
+				params.where.name = {
+	        		[Op.like] : `%${req.query.name}%`
+	        	
+	    	}
+	    }
+				}
+				return result.getEvents(params)
 			}
 			else {
 				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
@@ -333,6 +355,8 @@ app.get('/users/:uid/events', (req, res) => {
 		})
 		.catch(() => res.status(500).send('Eroare server'))
 })
+
+
 
 //metodă de preluare a unui anumit event al unui utilizator in functie de id
 app.get('/users/:uid/events/:eid', (req, res) => {
