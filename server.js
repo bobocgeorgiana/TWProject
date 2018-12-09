@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
 const authRoutes = require('./routes/auth-routes');
 const passportSetup = require("./config/passport-setup");
+const Op = Sequelize.Op;
 
 const sequelize = new Sequelize('calendar', 'root', '', {
 	dialect: 'mysql',
@@ -207,14 +208,26 @@ app.post('/users', (request, response) => {
 	}
 })
 
-//metodă de preluare a tuturor utilizatorilor
-app.get('/users', (request, response) => {
-	User.findAll()
+//metodă de preluare a tuturor utilizatorilor in ordine descrescatore a gmail-ului
+//sau de cautare a unor urilizatori in functie de gmailul acestora daca avem si parametrul filter
+app.get('/users', (req, res) => {
+		let params = {
+			where : {},
+			order : [['gmail', 'DESC']]
+		}
+	    if (req.query.filter){
+	    	
+				params.where.gmail = {
+	        		[Op.like] : `%${req.query.filter}%`
+	        	
+	    	}
+	    }
+	User.findAll(params)
 		.then((results) => {
-			response.status(200).json(results)
+			res.status(200).json(results)
 		})
 		.catch(() => {
-			response.status(500).send("Eroare server")
+			res.status(500).send("Eroare server")
 
 		})
 })
@@ -555,7 +568,6 @@ app.delete('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
 		})
 		.catch(() => res.status(500).send('Eroare server'))
 })
-
 
 app.use(express.static('static', {index: 'login.html'}))
 
