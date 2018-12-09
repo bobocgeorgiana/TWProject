@@ -185,7 +185,7 @@ app.get('/createdb', (request, response) => {
 
 
 //metodă de preluare a tuturor utilizatorilor in ordine descrescatore a gmail-ului
-//sau de cautare a unor urilizatori in functie de gmailul acestora daca avem si parametrul gmail
+//metodă de cautare a unor urilizatori in functie de gmailul acestora daca avem si parametrul gmail
 app.get('/users', (req, res) => {
 		let params = {
 			where : {},
@@ -292,8 +292,9 @@ app.post('/users/:uid/events', (req, res) => {
 })
 
 
-//metodă de preluare a tuturor event-urilor  unui utilizator
-
+//metodă de preluare a tuturor eventurilor in ordine descrescatore a datei
+//metodă de cautare a unor eventuri in functie de numele acestora
+//metodă de preluare a tuturor eventurilor dintr-o anumita zi
 app.get('/users/:uid/events', (req, res) => {
 	let params = {
 			where : {},
