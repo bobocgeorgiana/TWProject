@@ -5,7 +5,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       I will be the app
+        <ul>
+    <li><a href="/auth/google">Login</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
       </div>
     );
   }
