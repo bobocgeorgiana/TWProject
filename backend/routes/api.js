@@ -25,133 +25,182 @@ const User = sequelize.define('user', {
 		validate: {
 			isEmail: true
 		}
-	}
-
-})
-
-let Event = sequelize.define('event', {
-	name: {
+	},
+		firstname: {
 		type: Sequelize.STRING,
 		allowNull: false,
 		validate: {
 			len: [3, 30]
 		}
 	},
-
-	date: {
-		type: Sequelize.DATE,
-		allowNull: false,
-		isDate: true,
-		isAfter: Sequelize.NOW
-
-	},
-	score: {
-		type: Sequelize.INTEGER,
-		validate: {
-			isNumeric: true,
-			min: 1,
-			max: 5
-		}
-	},
-	description: {
+     	lastname: {
 		type: Sequelize.STRING,
+		allowNull: false,
 		validate: {
-			len: [5, 100]
+			len: [3, 30]
 		}
+	}
+
+});
+
+let Event = sequelize.define('event', {
+	name: {
+		type: Sequelize.STRING,
 	},
 
 	startTime: {
-		type: Sequelize.TIME,
+		type: Sequelize.DATE,
 		allowNull: false,
-	},
+		isDate: true,
 
+	},
+	
 	endTime: {
-		type: Sequelize.TIME,
+		type: Sequelize.DATE,
 		allowNull: false,
+		isDate: true,
+
 	},
-
-
-})
-
-let Reminder = sequelize.define('reminder', {
-	daysbefore: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
+	
+	description: {
+		type: Sequelize.STRING,
 		validate: {
-			isNumeric: true,
-			min: 0
+			len: [0, 100]
 		}
-	},
-	weeksbefore: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		validate: {
-			isNumeric: true,
-			min: 0
-		}
-	},
-	hoursbefore: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		validate: {
-			isNumeric: true,
-			min: 0
-		}
-	},
-	minutesbefore: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		validate: {
-			isNumeric: true,
-			min: 0
-		}
+	}
+
+});
+
+let Team = sequelize.define('team', {
+	name: {
+		type: Sequelize.STRING,
 	},
 
-})
+	noPlayers: {
+ 		type: Sequelize.INTEGER,
+		allowNull: false,
+ 		validate: {
+ 			isNumeric: true,
+			min: 0
+ 		}
+ 	},
+	
+	type: {
+		type: Sequelize.STRING,
+		validate: {
+			len: [0, 100]
+		}
+	}
 
+});
 
-let Location = sequelize.define('location', {
-	country: {
+let Player = sequelize.define('player', {
+	firstname: {
 		type: Sequelize.STRING,
 		allowNull: false,
 		validate: {
-			len: [3, 40]
+			len: [3, 30]
 		}
 	},
-	city: {
+     	lastname: {
 		type: Sequelize.STRING,
 		allowNull: false,
 		validate: {
-			len: [3, 40]
+			len: [3, 30]
 		}
 	},
-	street: {
-		type: Sequelize.STRING,
-		validate: {
-			len: [3, 40]
-		}
-	},
-
-	number: {
-		type: Sequelize.INTEGER,
-		validate: {
-			isNumeric: true,
+	
+		years: {
+ 		type: Sequelize.INTEGER,
+		allowNull: false,
+ 		validate: {
+ 			isNumeric: true,
 			min: 0
-		}
-	},
+ 		}
+ 	}
 
-})
+});
+
+// let Reminder = sequelize.define('reminder', {
+// 	daysbefore: {
+// 		type: Sequelize.INTEGER,
+// 		allowNull: false,
+// 		validate: {
+// 			isNumeric: true,
+// 			min: 0
+// 		}
+// 	},
+// 	weeksbefore: {
+// 		type: Sequelize.INTEGER,
+// 		allowNull: false,
+// 		validate: {
+// 			isNumeric: true,
+// 			min: 0
+// 		}
+// 	},
+// 	hoursbefore: {
+// 		type: Sequelize.INTEGER,
+// 		allowNull: false,
+// 		validate: {
+// 			isNumeric: true,
+// 			min: 0
+// 		}
+// 	},
+// 	minutesbefore: {
+// 		type: Sequelize.INTEGER,
+// 		allowNull: false,
+// 		validate: {
+// 			isNumeric: true,
+// 			min: 0
+// 		}
+// 	},
+
+// })
+
+
+// let Location = sequelize.define('location', {
+// 	country: {
+// 		type: Sequelize.STRING,
+// 		allowNull: false,
+// 		validate: {
+// 			len: [3, 40]
+// 		}
+// 	},
+// 	city: {
+// 		type: Sequelize.STRING,
+// 		allowNull: false,
+// 		validate: {
+// 			len: [3, 40]
+// 		}
+// 	},
+// 	street: {
+// 		type: Sequelize.STRING,
+// 		validate: {
+// 			len: [3, 40]
+// 		}
+// 	},
+
+// 	number: {
+// 		type: Sequelize.INTEGER,
+// 		validate: {
+// 			isNumeric: true,
+// 			min: 0
+// 		}
+// 	},
+
+// })
 
 //Intre tabela users si events exista o realtie de 1-n, un utilizator putand avea unul sau mai multe evenimente.
 //De asemenea, proprietatea onDelete a fost setata pe 'cascade' deoarece in momentul in care se sterge un utilizator, dorim sa se stearga si toate event-urile acestuia
 User.hasMany(Event, { onDelete: 'cascade', hooks: true })
 
-//Intre tabela evnts si locations exista o realtie de 1-1, deoarece un event se poate desfasura intr-o sigura locatie.
-Event.hasOne(Location, { foreignKey: { unique: 'eventId' } })
+//Intre tabela events si team exista o realtie de n-m, deoarece un event poate avea mai multe echipe(2) si o echipa poate participa la mai multe eventuri
+Event.hasMany(Team, { onDelete: 'cascade', hooks: true })
+Team.hasMany(Event, { onDelete: 'cascade', hooks: true })
 
-//Intre tabela events si reminders exista o realtie de 1-n, un event putand avea unul sau mai multe remindere.
+//Intre tabela team si player exista o realtie de 1-n, o echipa avand mai multi jucatori
 //De asemenea, proprietatea onDelete a fost setata pe 'cascade' deoarece in momentul in care se sterge un event, dorim sa se stearga si toate remider-urile acestuia.
-Event.hasMany(Reminder, { onDelete: 'cascade', hooks: true })
+Team.hasMany(Player, { onDelete: 'cascade', hooks: true })
 
 
 
@@ -207,367 +256,384 @@ router.get('/users', (req, res) => {
 		})
 })
 
-//metodă de preluare a unui utilizator in functie de id
-router.get('/users/:id', (request, response) => {
-	User.findById(request.params.id)
-		.then((result) => {
-			if (result) {
-				response.status(200).json(result)
-			}
-			else {
-				response.status(404).send("Utilizatorul nu a fost gasit!")
-			}
-
-		})
-		.catch(() => {
-			response.status(500).send("Eroare server")
-		})
-
-})
-
-//metodă de modificare a unui utilizator in functie de id
-router.put('/users/:id', (request, response) => {
-	User.findById(request.params.id)
-		.then((user) => {
-			if (user) {
-				user.update(request.body).then((result) => {
-					response.status(201).json(result)
-				}).catch((err) => {
-					console.log(err)
-					response.status(500).send('Eroare server')
-				})
-			}
-			else {
-				response.status(404).send('Utilizatorul nu a fost gasit!')
-			}
-		}).catch((err) => {
-			console.log(err)
-			response.status(500).send('Eroare server')
-		})
-})
-
-//metodă de stergere a unui utilizator in functie de id  
-router.delete('/users/:id', (request, response) => {
-	User.findById(request.params.id).then((user) => {
-		if (user) {
-			user.destroy().then((result) => {
-				response.status(201).send('Utilizatorul a fost sters cu succes!')
-			}).catch((err) => {
-				console.log(err)
-				response.status(500).send('Eroare server')
-			})
+router.post('/users',  (req, res) => {
+	try{
+		if (req.query.bulk && req.query.bulk == 'on'){
+			 User.bulkCreate(req.body)
+			res.status(201).json({message : 'created'})
 		}
-		else {
-			response.status(404).send('Utilizatorul nu a fost gasit!')
+		else{
+			 User.create(req.body)
+			res.status(201).json({message : 'created'})
 		}
-	}).catch((err) => {
-		console.log(err)
-		response.status(500).send('Eroare server')
-	})
+	}
+	catch(e){
+		console.warn(e)
+		res.status(500).json({message : 'server error'})
+	}
 })
 
+// //metodă de preluare a unui utilizator in functie de id
+// router.get('/users/:id', (request, response) => {
+// 	User.findById(request.params.id)
+// 		.then((result) => {
+// 			if (result) {
+// 				response.status(200).json(result)
+// 			}
+// 			else {
+// 				response.status(404).send("Utilizatorul nu a fost gasit!")
+// 			}
+
+// 		})
+// 		.catch(() => {
+// 			response.status(500).send("Eroare server")
+// 		})
+
+// })
+
+// //metodă de modificare a unui utilizator in functie de id
+// router.put('/users/:id', (request, response) => {
+// 	User.findById(request.params.id)
+// 		.then((user) => {
+// 			if (user) {
+// 				user.update(request.body).then((result) => {
+// 					response.status(201).json(result)
+// 				}).catch((err) => {
+// 					console.log(err)
+// 					response.status(500).send('Eroare server')
+// 				})
+// 			}
+// 			else {
+// 				response.status(404).send('Utilizatorul nu a fost gasit!')
+// 			}
+// 		}).catch((err) => {
+// 			console.log(err)
+// 			response.status(500).send('Eroare server')
+// 		})
+// })
+
+// //metodă de stergere a unui utilizator in functie de id  
+// router.delete('/users/:id', (request, response) => {
+// 	User.findById(request.params.id).then((user) => {
+// 		if (user) {
+// 			user.destroy().then((result) => {
+// 				response.status(201).send('Utilizatorul a fost sters cu succes!')
+// 			}).catch((err) => {
+// 				console.log(err)
+// 				response.status(500).send('Eroare server')
+// 			})
+// 		}
+// 		else {
+// 			response.status(404).send('Utilizatorul nu a fost gasit!')
+// 		}
+// 	}).catch((err) => {
+// 		console.log(err)
+// 		response.status(500).send('Eroare server')
+// 	})
+// })
 
 
-// metode HTTP pentru tabela events
 
-//metodă de creare a unui event al unui anumit utilizator;  
-router.post('/users/:uid/events', (req, res) => {
-	User.findById(req.params.uid)
-		.then((result) => {
-			if (result) {
-				let event = req.body
-				event.userId = result.id
-				return Event.create(event)
-			}
-			else {
-				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
-			}
-		})
-		.then(() => {
+// // metode HTTP pentru tabela events
 
-			res.status(201).json('Evenimentul a fost creat cu succes!')
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
+// //metodă de creare a unui event al unui anumit utilizator;  
+// router.post('/users/:uid/events', (req, res) => {
+// 	User.findById(req.params.uid)
+// 		.then((result) => {
+// 			if (result) {
+// 				let event = req.body
+// 				event.userId = result.id
+// 				return Event.create(event)
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then(() => {
+
+// 			res.status(201).json('Evenimentul a fost creat cu succes!')
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
 
-//metodă de preluare a tuturor eventurilor in ordine descrescatore a datei
-//metodă de cautare a unor eventuri in functie de numele acestora
-//metodă de preluare a tuturor eventurilor dintr-o anumita zi
-router.get('/users/:uid/events', (req, res) => {
-	let params = {
-			where : {},
-			order : [['date', 'DESC']]
-		}
-	User.findById(req.params.uid)
-		.then((result) => {
-			if (result) {
-				if(req.query)
-				{
-				if (req.query.date){
+// //metodă de preluare a tuturor eventurilor in ordine descrescatore a datei
+// //metodă de cautare a unor eventuri in functie de numele acestora
+// //metodă de preluare a tuturor eventurilor dintr-o anumita zi
+// router.get('/users/:uid/events', (req, res) => {
+// 	let params = {
+// 			where : {},
+// 			order : [['date', 'DESC']]
+// 		}
+// 	User.findById(req.params.uid)
+// 		.then((result) => {
+// 			if (result) {
+// 				if(req.query)
+// 				{
+// 				if (req.query.date){
 	    	
-				params.where.date = {
-	        		[Op.like] : `%${req.query.date}%`
+// 				params.where.date = {
+// 	        		[Op.like] : `%${req.query.date}%`
 	        	
-	    	}
-	    }
-	    if (req.query.name){
+// 	    	}
+// 	    }
+// 	    if (req.query.name){
 	    	
-				params.where.name = {
-	        		[Op.like] : `%${req.query.name}%`
+// 				params.where.name = {
+// 	        		[Op.like] : `%${req.query.name}%`
 	        	
-	    	}
-	    }
-				}
-				return result.getEvents(params)
-			}
-			else {
-				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
-			}
-		})
-		.then((results) => {
+// 	    	}
+// 	    }
+// 				}
+// 				return result.getEvents(params)
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then((results) => {
 
-			res.status(200).json(results)
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
-
-
-
-//metodă de preluare a unui anumit event al unui utilizator in functie de id
-router.get('/users/:uid/events/:eid', (req, res) => {
-	User.findById(req.params.uid)
-		.then((result) => {
-			if (result) {
-				return result.getEvents({where:{id : req.params.eid}})
-			}
-			else {
-				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
-			}
-		})
-		.then((results) => {
-
-			res.status(200).json(results)
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
-
-//metodă de modificare a unui anumit event al unui utilizator
-router.put('/users/:uid/events/:eid', (req, res) => {
-	Event.findById(req.params.eid)
-		.then((result) => {
-			if (result) {
-				return result.update(req.body)
-			}
-			else {
-				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
-			}
-		})
-		.then(() => {
-
-			res.status(201).json({ message: 'Evenimentul a fost modificat!' })
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
-
-//metodă de stergere a unui anumit event al unui utilizator
-router.delete('/users/:uid/events/:eid', (req, res) => {
-	Event.findById(req.params.eid)
-		.then((result) => {
-			if (result) {
-				return result.destroy()
-			}
-			else {
-				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
-			}
-		})
-		.then(() => {
-
-			res.status(201).json({ message: 'Evenimentul a fost sters!' })
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
+// 			res.status(200).json(results)
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
 
 
-// metode HTTP pentru tabela location
+// //metodă de preluare a unui anumit event al unui utilizator in functie de id
+// router.get('/users/:uid/events/:eid', (req, res) => {
+// 	User.findById(req.params.uid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.getEvents({where:{id : req.params.eid}})
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Utilizatorul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then((results) => {
 
-//metodă de creare a locatiei unui anumit event
-router.post('/users/:uid/events/:eid/locations', (req, res) => {
-	Event.findById(req.params.eid)
-		.then((result) => {
-			if (result) {
+// 			res.status(200).json(results)
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
-				let location = req.body
-				location.eventId = result.id
-				return Location.create(location)
+// //metodă de modificare a unui anumit event al unui utilizator
+// router.put('/users/:uid/events/:eid', (req, res) => {
+// 	Event.findById(req.params.eid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.update(req.body)
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then(() => {
 
-			}
-			else {
-				res.status(404).json({ message: 'Eventul nu a fost gasit!' })
-			}
-		})
-		.then(() => {
+// 			res.status(201).json({ message: 'Evenimentul a fost modificat!' })
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
-			res.status(201).json('Locatia a fost adaugata cu succes!')
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
+// //metodă de stergere a unui anumit event al unui utilizator
+// router.delete('/users/:uid/events/:eid', (req, res) => {
+// 	Event.findById(req.params.eid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.destroy()
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then(() => {
 
-//metodă de preluare a locatiei unui anumit event
-router.get('/users/:uid/events/:eid/locations', (req, res) => {
-	Event.findById(req.params.eid)
-		.then((result) => {
-			if (result) {
-				return result.getLocation()
-			}
-			else {
-				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
-			}
-		})
-		.then((result) => {
-
-			res.status(200).json(result)
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
-
-
-//metodă de modificare a locatiei unui anumit event
-router.put('/users/:uid/events/:eid/locations/:lid', (req, res) => {
-	Location.findById(req.params.lid)
-		.then((result) => {
-			if (result) {
-				return result.update(req.body)
-			}
-			else {
-				res.status(404).json({ message: 'Locatia nu a fost gasita!' })
-			}
-		})
-		.then(() => {
-
-			res.status(201).json({ message: 'Locatia a fost modificata!' })
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
+// 			res.status(201).json({ message: 'Evenimentul a fost sters!' })
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
 
-//metodă de stergere a locatiei unui anumit event
-router.delete('/users/:uid/events/:eid/locations/:lid', (req, res) => {
-	Location.findById(req.params.lid)
-		.then((result) => {
-			if (result) {
-				return result.destroy()
-			}
-			else {
-				res.status(404).json({ message: 'Locatia nu a fost gasita!' })
-			}
-		})
-		.then(() => {
 
-			res.status(201).json({ message: 'Locatia a fost stersa!' })
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
+// // metode HTTP pentru tabela location
 
+// //metodă de creare a locatiei unui anumit event
+// router.post('/users/:uid/events/:eid/locations', (req, res) => {
+// 	Event.findById(req.params.eid)
+// 		.then((result) => {
+// 			if (result) {
 
-// metode HTTP pentru tabela remidere
+// 				let location = req.body
+// 				location.eventId = result.id
+// 				return Location.create(location)
 
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Eventul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then(() => {
 
-//metodă de creare a unui reminder pentru un event 
-router.post('/users/:uid/events/:eid/reminders', (req, res) => {
-	Event.findById(req.params.eid)
-		.then((result) => {
-			if (result) {
+// 			res.status(201).json('Locatia a fost adaugata cu succes!')
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
-				let reminder = req.body
-				reminder.eventId = result.id
-				return Reminder.create(reminder)
+// //metodă de preluare a locatiei unui anumit event
+// router.get('/users/:uid/events/:eid/locations', (req, res) => {
+// 	Event.findById(req.params.eid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.getLocation()
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then((result) => {
 
-			}
-			else {
-				res.status(404).json({ message: 'Eventul nu a fost gasit!' })
-			}
-		})
-		.then(() => {
-
-			res.status(201).json('Reminder-ul a fost adaugat cu succes!')
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
-
-//metodă de preluare a reminderelor unui anumit event
-router.get('/users/:uid/events/:eid/reminders', (req, res) => {
-	Event.findById(req.params.eid)
-		.then((result) => {
-			if (result) {
-				return result.getReminders()
-			}
-			else {
-				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
-			}
-		})
-		.then((results) => {
-
-			res.status(200).json(results)
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
-
-//metodă de preluare a unui anumit reminder al unui event in functie de id
-router.get('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
-	Event.findById(req.params.eid)
-		.then((result) => {
-			if (result) {
-				return result.getReminders({where:{id : req.params.rid}})
-			}
-			else {
-				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
-			}
-		})
-		.then((results) => {
-
-			res.status(200).json(results)
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
-
-//metodă de modificare a unui anumit reminder al unui event
-router.put('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
-	Reminder.findById(req.params.rid)
-		.then((result) => {
-			if (result) {
-				return result.update(req.body)
-			}
-			else {
-				res.status(404).json({ message: 'Reminder-ul nu a fost gasit!' })
-			}
-		})
-		.then(() => {
-
-			res.status(201).json({ message: 'Reminder-ul a fost modificat!' })
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
+// 			res.status(200).json(result)
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
 
-//metodă de stergere a unui reminder unui anumit anumit event
-router.delete('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
-	Reminder.findById(req.params.rid)
-		.then((result) => {
-			if (result) {
-				return result.destroy()
-			}
-			else {
-				res.status(404).json({ message: 'Reminder-ul nu a fost gasit!' })
-			}
-		})
-		.then(() => {
+// //metodă de modificare a locatiei unui anumit event
+// router.put('/users/:uid/events/:eid/locations/:lid', (req, res) => {
+// 	Location.findById(req.params.lid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.update(req.body)
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Locatia nu a fost gasita!' })
+// 			}
+// 		})
+// 		.then(() => {
 
-			res.status(201).json({ message: 'Reminder-ul a fost sters!' })
-		})
-		.catch(() => res.status(500).send('Eroare server'))
-})
+// 			res.status(201).json({ message: 'Locatia a fost modificata!' })
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
+
+
+// //metodă de stergere a locatiei unui anumit event
+// router.delete('/users/:uid/events/:eid/locations/:lid', (req, res) => {
+// 	Location.findById(req.params.lid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.destroy()
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Locatia nu a fost gasita!' })
+// 			}
+// 		})
+// 		.then(() => {
+
+// 			res.status(201).json({ message: 'Locatia a fost stersa!' })
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
+
+
+// // metode HTTP pentru tabela remidere
+
+
+// //metodă de creare a unui reminder pentru un event 
+// router.post('/users/:uid/events/:eid/reminders', (req, res) => {
+// 	Event.findById(req.params.eid)
+// 		.then((result) => {
+// 			if (result) {
+
+// 				let reminder = req.body
+// 				reminder.eventId = result.id
+// 				return Reminder.create(reminder)
+
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Eventul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then(() => {
+
+// 			res.status(201).json('Reminder-ul a fost adaugat cu succes!')
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
+
+// //metodă de preluare a reminderelor unui anumit event
+// router.get('/users/:uid/events/:eid/reminders', (req, res) => {
+// 	Event.findById(req.params.eid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.getReminders()
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then((results) => {
+
+// 			res.status(200).json(results)
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
+
+// //metodă de preluare a unui anumit reminder al unui event in functie de id
+// router.get('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
+// 	Event.findById(req.params.eid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.getReminders({where:{id : req.params.rid}})
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Evenimentul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then((results) => {
+
+// 			res.status(200).json(results)
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
+
+// //metodă de modificare a unui anumit reminder al unui event
+// router.put('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
+// 	Reminder.findById(req.params.rid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.update(req.body)
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Reminder-ul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then(() => {
+
+// 			res.status(201).json({ message: 'Reminder-ul a fost modificat!' })
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
+
+
+// //metodă de stergere a unui reminder unui anumit anumit event
+// router.delete('/users/:uid/events/:eid/reminders/:rid', (req, res) => {
+// 	Reminder.findById(req.params.rid)
+// 		.then((result) => {
+// 			if (result) {
+// 				return result.destroy()
+// 			}
+// 			else {
+// 				res.status(404).json({ message: 'Reminder-ul nu a fost gasit!' })
+// 			}
+// 		})
+// 		.then(() => {
+
+// 			res.status(201).json({ message: 'Reminder-ul a fost sters!' })
+// 		})
+// 		.catch(() => res.status(500).send('Eroare server'))
+// })
 
 // cookieSession config
 router.use(cookieSession({

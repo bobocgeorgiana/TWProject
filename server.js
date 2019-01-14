@@ -10,9 +10,6 @@ app.use('/', express.static('frontend/build'));
 app.use('/api', api);
 
 
-
-
-
 // app.get('/', (require, response) =>{
 // 	response.render('login');
 // })
