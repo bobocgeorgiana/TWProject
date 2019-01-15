@@ -688,7 +688,7 @@ var fs = require('fs');
 
 // Secret route
 router.get('/secret', isUserAuthenticated, (req, response) => {
-    fs.readFile('./static/index.html', null, function(error, data){
+    fs.readFile('../static/index.html', null, function(error, data){
     	if(error){
     		response.writeHead(404);
     		response.write('File not found!');

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Index from './components/index'
-import Login from './components/login'
+import Index from './containers/index'
+import Login from './containers/login'
+import Header from './components/header'
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
       <div className="App" >
         <Router>
           <div>
+          <Header />
             <div style={{padding:'10px'}}>
               <Route path="/" exact component={Index} />
               <Route path="/secret" component={Login} />
