@@ -30,3 +30,18 @@
     transform: rotate(360deg);
   }
 }
+
+.primary-cta {
+  padding-left:18px;
+  padding-right: 18px;
+  padding-bottom:7px;
+  padding-top: 0px;
+  font-size: 50px;
+  color:white;
+  background-color: #2734ED;
+  border-radius:50%;
+  text-decoration: none;
+  position: absolute;
+  bottom: 50px;
+  right:50px;
+}
