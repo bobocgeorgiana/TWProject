@@ -47,29 +47,58 @@ background-image: linear-gradient(to right,#0716E6,#3340EA,#7D85EC,#F2F3F9);
   text-decoration: none;
   position: absolute;
   bottom: 50px;
-  right:50px;
+  right:60px;
 }
 
-#signOut{
+#signOut,#logIn {
   font-family: "Roboto";
   font-weight: bold;
   font-size: 20px;
-  color: #2734ED;
+  color: wheat;
   text-decoration: none;
-  top:20px;
+  top:50px;
   right:50px;
   position: absolute;
   border-color: #3340EA;
   border-width: 3px;
   border-style: solid;
   padding: 10px;
-  background-color: #F2F3F9;
+  background-color: #2734ED;
   
 }
 
 #myCalendar{
   font-family: "Roboto";
   font-weight: bold; 
-  font-size: 40px;
-  color:#000000;
+  font-size: 50px;
+  color:#DFE0ED;
+  text-shadow: 1px 1px 1px #B3B3BA;
+  font-style: italic;
+}
+
+p3 {
+  font-size: 15px;
+  color:wheat;
+  font-style: italic;
+  position: absolute;
+   bottom: 30px;
+  left:30px;
+}
+
+#welcome{
+  font-family: "Roboto";
+  font-weight: bold; 
+  font-size: 80px;
+  color:#DFE0ED;
+  text-shadow: 1px 1px 1px #B3B3BA;
+  font-style: italic;
+}
+
+#logIn {
+    position: absolute;
+  left:60px;
+  top:250px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size:25px;
 }

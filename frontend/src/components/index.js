@@ -25,8 +25,8 @@ class Index extends Component {
         
       return (<div>
       
-      <h1 id ="myCalendar">My Calendar</h1>    
-         <p1><a id="signOut" href="/logout">SIGN OUT</a></p1>
+      <h1 id ="myCalendar">Event Planner</h1>    
+         <p1><a id="signOut" href="/">SIGN OUT</a></p1>
           <br/>
       <p2 id="p2"></p2>
           <a id="addEvent"
@@ -36,7 +36,7 @@ class Index extends Component {
           >
             +
           </a>
-      
+      <p3>@GALA Tech</p3>
       </div> )
     }
 }

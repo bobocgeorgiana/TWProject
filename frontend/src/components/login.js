@@ -4,10 +4,9 @@ class Login extends Component {
     render() {
       return (<div>
       
-       <ul>
-    <li><a href="/auth/google">Login</a></li>
-    <li><a href="/logout">Logout</a></li>
-</ul>
+    <h1 id="welcome">WELCOME!</h1>  
+    <a id="logIn" href="/auth/google">SIGN IN</a>
+    <a href="/logout">Logout</a>
       
       
       </div>)
