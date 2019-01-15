@@ -19,14 +19,14 @@ class Index extends Component {
 //                 this.setState({
 //                 time: time
 //                   });
+//<p1><a id="signOut" href="/">SIGN OUT</a></p1>
 //                  };
        
     render() {
         
       return (<div>
       
-      <h1 id ="myCalendar">Event Planner</h1>    
-         <p1><a id="signOut" href="/">SIGN OUT</a></p1>
+      <h1 id ="myCalendar">Event Planner</h1>   
           <br/>
       <p2 id="p2"></p2>
           <a id="addEvent"
