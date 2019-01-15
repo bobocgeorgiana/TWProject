@@ -50,7 +50,7 @@ background-image: linear-gradient(to right,#0716E6,#3340EA,#7D85EC,#F2F3F9);
   right:60px;
 }
 
-#signOut,#logIn {
+#signOut {
   font-family: "Roboto";
   font-weight: bold;
   font-size: 20px;
@@ -95,10 +95,20 @@ p3 {
 }
 
 #logIn {
-    position: absolute;
-  left:60px;
+  font-family: "Roboto";
+  font-weight: bold;
+  color: wheat;
+  text-decoration: none;
+
+  position: absolute;
+  border-color: #3340EA;
+  border-width: 3px;
+  border-style: solid;
+  background-color: #2734ED;
+  
+  left:570px;
   top:250px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 80px;
+  padding-right: 80px;
   font-size:25px;
 }
