@@ -1,0 +1,51 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/ubuntu/.nvm/versions/node/v6.11.2/bin/node',
+1 verbose cli   '/home/ubuntu/.nvm/versions/node/v6.11.2/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '@material-ui/icons/ExpandMore' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.2
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData @material-ui/icons/ExpandMore
+8 silly fetchOtherPackageData @material-ui/icons/ExpandMore
+9 silly cache add args [ '@material-ui/icons/ExpandMore', null ]
+10 verbose cache add spec @material-ui/icons/ExpandMore
+11 silly cache add parsed spec Result {
+11 silly cache add   raw: '@material-ui/icons/ExpandMore',
+11 silly cache add   scope: null,
+11 silly cache add   escapedName: null,
+11 silly cache add   name: null,
+11 silly cache add   rawSpec: '@material-ui/icons/ExpandMore',
+11 silly cache add   spec: '/home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore',
+11 silly cache add   type: 'local' }
+12 error addLocal Could not install /home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore
+13 silly fetchPackageMetaData Error: ENOENT: no such file or directory, open '/home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore'
+13 silly fetchPackageMetaData     at Error (native)
+13 silly fetchPackageMetaData  error for @material-ui/icons/ExpandMore { Error: ENOENT: no such file or directory, open '/home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore'
+13 silly fetchPackageMetaData     at Error (native)
+13 silly fetchPackageMetaData   errno: -2,
+13 silly fetchPackageMetaData   code: 'ENOENT',
+13 silly fetchPackageMetaData   syscall: 'open',
+13 silly fetchPackageMetaData   path: '/home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore' }
+14 silly rollbackFailedOptional Starting
+15 silly rollbackFailedOptional Finishing
+16 silly runTopLevelLifecycles Finishing
+17 silly install printInstalled
+18 verbose stack Error: ENOENT: no such file or directory, open '/home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore'
+18 verbose stack     at Error (native)
+19 verbose cwd /home/ubuntu/workspace/TWProject
+20 error Linux 4.9.120-c9
+21 error argv "/home/ubuntu/.nvm/versions/node/v6.11.2/bin/node" "/home/ubuntu/.nvm/versions/node/v6.11.2/bin/npm" "install" "@material-ui/icons/ExpandMore"
+22 error node v6.11.2
+23 error npm  v3.10.10
+24 error path /home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore
+25 error code ENOENT
+26 error errno -2
+27 error syscall open
+28 error enoent ENOENT: no such file or directory, open '/home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore'
+29 error enoent ENOENT: no such file or directory, open '/home/ubuntu/workspace/TWProject/@material-ui/icons/ExpandMore'
+29 error enoent This is most likely not a problem with npm itself
+29 error enoent and is related to npm not being able to find a file.
+30 verbose exit [ -2, true ]
