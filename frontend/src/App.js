@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Index from './containers/index'
 import Login from './containers/login'
 import Header from './components/header'
+import Events from './containers/events'
 
 class App extends Component {
   render() {
@@ -15,7 +16,8 @@ class App extends Component {
           <Header />
             <div style={{padding:'10px'}}>
               <Route path="/" exact component={Index} />
-              <Route path="/secret" component={Login} />
+              <Route path="/users" component={Login} />
+              <Route path="/events" component={Events}/>
             </div>
           </div>
         </Router>

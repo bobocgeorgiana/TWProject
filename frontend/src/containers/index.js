@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 //import moment from "moment";
 //import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Icon from '@material-ui/core/Icon';
+import DeleteIcon from '@material-ui/icons/Delete';
+import NavigationIcon from '@material-ui/icons/Navigation';
 
 class Index extends Component {
  //    constructor(props) {
@@ -24,7 +31,10 @@ class Index extends Component {
        
     render() {
         
-      return (<div>
+      return (
+      
+      
+      <div>
       
       <h1 id ="myCalendar">Event Planner</h1>   
           <br/>

@@ -18,7 +18,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props)
 
-    let pages = ['/', '/', '/', '/'];
+    let pages = ['/', '/', '/events', '/'];
     let labels = ['Home', 'Users', 'Events', 'About']
 
     let pathname = this.props.location.pathname
