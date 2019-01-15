@@ -6,6 +6,7 @@ import Index from './containers/index'
 import Login from './containers/login'
 import Header from './components/header'
 import Events from './containers/events'
+import About from './containers/about'
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
               <Route path="/" exact component={Index} />
               <Route path="/users" component={Login} />
               <Route path="/events" component={Events}/>
+              <Route path="/about" component={About}/>
             </div>
           </div>
         </Router>
