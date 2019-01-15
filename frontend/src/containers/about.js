@@ -27,7 +27,7 @@ class AlertDialogSlide extends React.Component {
   render() {
     return (
       <div>
-        <Button variant="outlined" color="secundary" onClick={this.handleClickOpen}>
+        <Button variant="outlined" color="#2196f3" onClick={this.handleClickOpen}>
           Press for details about the project's team
         </Button>
         <Dialog
@@ -62,6 +62,7 @@ class AlertDialogSlide extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
+        
       </div>
     );
   }

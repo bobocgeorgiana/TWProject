@@ -63,6 +63,7 @@ function SimpleTable(props) {
         </TableBody>
       </Table>
     </Paper>
+    
   );
 }
 
