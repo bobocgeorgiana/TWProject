@@ -1,3 +1,7 @@
+body {
+background-image: linear-gradient(to right,#0716E6,#3340EA,#7D85EC,#F2F3F9);
+}
+  
 .App {
   text-align: center;
 }
@@ -44,4 +48,28 @@
   position: absolute;
   bottom: 50px;
   right:50px;
+}
+
+#signOut{
+  font-family: "Roboto";
+  font-weight: bold;
+  font-size: 20px;
+  color: #2734ED;
+  text-decoration: none;
+  top:20px;
+  right:50px;
+  position: absolute;
+  border-color: #3340EA;
+  border-width: 3px;
+  border-style: solid;
+  padding: 10px;
+  background-color: #F2F3F9;
+  
+}
+
+#myCalendar{
+  font-family: "Roboto";
+  font-weight: bold; 
+  font-size: 40px;
+  color:#000000;
 }

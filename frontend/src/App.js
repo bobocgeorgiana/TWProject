@@ -13,7 +13,7 @@ class App extends Component {
           <div>
             <div style={{padding:'10px'}}>
               <Route path="/" exact component={Index} />
-              <Route path="/secret" component={Index} />
+              <Route path="/secret" component={Login} />
             </div>
           </div>
         </Router>
