@@ -6,7 +6,7 @@ class TeamForm extends Component {
     this.state = {
       name : '',
       noPlayers : -1,
-      type : '',
+      type : ''
     }
     this.handleChange = (evt) => {
       this.setState({
@@ -29,7 +29,7 @@ class TeamForm extends Component {
           <input type="button" value="add" onClick={() => this.props.onAdd({
             name : this.state.name,
             noPlayers : this.state.noPlayers,
-            type : this.state.type,
+            type : this.state.type
            
           })} />
         </form>

@@ -6,7 +6,7 @@ class PlayerForm extends Component {
     this.state = {
       firstName : '',
       lastName : '',
-      age : -1,
+      age : -1
     }
     this.handleChange = (evt) => {
       this.setState({
