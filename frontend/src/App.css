@@ -112,3 +112,12 @@ p3 {
   padding-right: 80px;
   font-size:25px;
 }
+
+.list-group-item{
+    display: block;
+    padding: 16px 4px;
+    color: #4099ff;
+    line-height: 22px;
+    border-bottom: 1px solid #eee;
+   
+}

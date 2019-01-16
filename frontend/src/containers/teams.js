@@ -6,6 +6,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import TeamList from './TeamList'
+
 
 const styles = theme => ({
   root: {
@@ -88,7 +90,14 @@ class ControlledExpansionPanels extends React.Component {
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+        
+         <br/>
+        <TeamList />
+    
+        
       </div>
+      
+      
     );
   }
 }

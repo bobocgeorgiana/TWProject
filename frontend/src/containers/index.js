@@ -1,44 +1,3 @@
-// import React, { Component } from 'react';
-// //import moment from "moment";
-// //import ReactDOM from 'react-dom';
-
-// class Index extends Component {
-//     constructor(props) {
-//     super(props);
-//     this.state = {
-//       time: moment().format("dd, Do MMMM, h:mm A"),
-//       events: [],
-//       isBusy: false,
-//       isEmpty: false,
-//       isLoading: true
-//     };
-//   }
-  
-//     render() {
-        
-//       return (<div>
-      
-//       <h1 id ="myCalendar">Event Planner</h1>   
-//           <br/>
-//       <p2 id="p2"></p2>
-//           <a id="addEvent"
-//             className="primary-cta"
-//             href="https://calendar.google.com/calendar?cid=cHFhNWY2ZDlqMTJ1dGY0YnVqN2Nsamx2aDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"
-//             //target="_blank"
-//           >
-//             +
-//           </a>
-//       <p3>@GALA Tech</p3>
-//       </div> )
-//     }
-// }
-
-// // const app = document.getElementById("p2");
-
-// // ReactDOM.render(<Layout/>,app);
-             
-// export default Index
-
 
 
 /* global gapi */
@@ -186,8 +145,7 @@ export default class App extends Component {
       <div className="empty">
         <img src={welcomeImage} alt="Welcome" />
         <h3>
-          No meetings are scheduled for the day. Create one by clicking the
-          button below.
+         Nu sunt programate evenimente pentru astazi!
         </h3>
       </div>
     );
@@ -206,13 +164,13 @@ export default class App extends Component {
           }
         >
         
-          <h1 id ="myCalendar">Event Planner</h1>  
+          <h1 id ="myCalendar">GALA Event Planner</h1>  
           
-          <h1>{this.state.isBusy ? "BUSY" : "OPEN"}</h1>
+        
         </div>
         <div className="upcoming-meetings">
           <div className="current-time">{time}, 2018</div>
-          <h1>Upcoming Meetings</h1>
+         
           <div className="list-group">
             {this.state.isLoading && loadingState}
             {events.length > 0 && eventsList}
@@ -235,6 +193,3 @@ export default class App extends Component {
     );
   }
 }
-
-
-
